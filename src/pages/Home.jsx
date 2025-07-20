@@ -66,7 +66,12 @@ function Home() {
         if(e.key === 'Enter'){
             handleAddTask();
         }
+
+        if (e.ctrlKey && e.key === 'Enter') {
+            handleDeleteTask(0);
+        }
     }
+
     
     return(
         <div className={styles.homeContainer}>
