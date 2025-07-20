@@ -62,13 +62,19 @@ function Home() {
         setTasks(updatedTasks);
     }
     
+    const handleKeyDown = (e) => {
+        if(e.key === 'Enter'){
+            handleAddTask();
+        }
+    }
+    
     return(
         <div className={styles.homeContainer}>
             <div className={styles.titleContainer}>
                 <h1 className={styles.title}>ToDo App</h1>
                 <div className={styles.inputContainer}>
                     {/* onChange⇒入力が変更されたらhandleChangeを呼び出す */}
-                    <input className={styles.inputBox} type="text" placeholder="タスクを入力" value={newTask} onChange={handleChange}/>
+                    <input className={styles.inputBox} type="text" placeholder="タスクを入力" value={newTask} onChange={handleChange} onKeyDown={handleKeyDown}/>
                     <button className={styles.addButton} onClick={handleAddTask}>追加</button>
             </div>
             </div>

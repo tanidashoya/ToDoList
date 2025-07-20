@@ -14,7 +14,8 @@ function TaskList(props) {
                     //map関数で渡されるtaskは{task:"タスク名", completed:false}というオブジェクトとして渡される
                         <li key={index} className={styles.taskItem}>
                             <input className={styles.checkbox} type="checkbox" onChange={() => handleToggleTask(index)} checked={task.completed}/>
-                            <span className={styles.taskText}>{task.task}</span>
+                            {/* task.completedがtrueの場合はstyles.doneを追加する */}
+                            <span className={`${styles.taskText} ${task.completed ? styles.done:""}`}>{task.task}</span>
                             <button className={styles.deleteButton} onClick={() =>{handleDeleteTask(index)}}>削除</button>
                         </li>
                     

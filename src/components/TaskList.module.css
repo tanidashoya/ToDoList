@@ -40,5 +40,12 @@
     color: #fff;
     border-radius: 0.5rem;
     font-weight: bold;
+    border: none;
 }
 
+.done {
+    text-decoration: line-through; /* 文字に線を引く */
+    background-color: #eee; /* 背景色をグレーにする */
+    color: #999; /* 文字色をグレーにする */
+}
+  
