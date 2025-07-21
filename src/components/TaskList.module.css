@@ -33,8 +33,10 @@
 
 }
 
+
+
 .deleteButton{
-    padding: 0.7rem 1rem;
+    padding: 0.5rem .8rem;
     width: 20%;
     background: linear-gradient(45deg, #ff4a4a, #ff3838);
     color: #fff;
@@ -48,4 +50,31 @@
     background-color: #eee; /* 背景色をグレーにする */
     color: #999; /* 文字色をグレーにする */
 }
-  
+
+.editButton{
+    padding: 0.5rem .8rem;
+    width: 20%;
+    background: linear-gradient(45deg, #4CAF50, #45a049);
+    color: #fff;
+    border-radius: 0.5rem;
+    font-weight: bold;
+    border: none;
+}
+
+.editInput{
+    padding: 0.5rem .8rem;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.saveButton{
+    padding: 0.5rem .8rem;
+    width: 20%;
+    background: linear-gradient(45deg, #2196F3, #1976D2);
+    color: #fff;
+    border-radius: 0.5rem;
+    font-weight: bold;
+    border: none;
+}
