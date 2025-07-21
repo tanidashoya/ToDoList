@@ -12,6 +12,15 @@ function TaskList(props) {
         handleSaveTask
     } = props;
     
+
+    function formatJapaneseDate(dateStr) {
+        const date = new Date(dateStr);
+        const year = date.getFullYear();
+        const month = date.getMonth() + 1; // 月は0始まり
+        const day = date.getDate();
+        return `${year}年${month}月${day}日`;
+      }
+
     //Reactコンポーネントのreturn文
     return(
         <div className={styles.taskListContainer}>
@@ -36,6 +45,17 @@ function TaskList(props) {
                                     <span className={`${styles.taskText} ${task.completed ? styles.done:""}`}>{task.task}</span>
                                     <button className={styles.editButton} onClick={() => handleEditTask(index)}>編集</button>
                                     <button className={styles.deleteButton} onClick={() =>{handleDeleteTask(index)}}>削除</button>
+                                    
+                                    {/* {task.due && ( */}
+                                        <span className={styles.dueText}>
+                                            {task.due ? (
+                                                <>
+                                                    期限:<br/> {formatJapaneseDate(task.due)}
+                                                </>) : (
+                                                    ""
+                                                )}
+                                        </span> 
+                                    {/* )} */}
                                 </>
                             )}
                             

@@ -2,13 +2,18 @@
 //ユーザーの行動 → 状態の変化 → UIの変化
 //ユーザーの行動を受け取って状態を変化させる → 状態の変化をUIに反映させる
 
-import {useState,useEffect} from 'react';
+//useRef は「DOM参照もできる」フック（Hook）であり、かつ「再レンダリングを伴わずに値を保持できる」フック
+import {useState,useEffect,useRef} from 'react';
 import TaskList from '../components/TaskList.jsx';
 import styles from './Home.module.css';
 
 
 function Home() {
 
+    //期限入力欄のフォーカスを管理するuseRef
+    const taskInputRef = useRef(null);
+
+    //期限日付の管理をする
     const [dueDate, setDueDate] = useState("");
 
     //追加するタスクを管理するuseState
@@ -86,6 +91,21 @@ function Home() {
         }
     }
 
+    //期限入力欄でctrl+Enterキーが押されたら期限をクリア
+    //  taskInputRef.current → 実際の <input> 要素 
+    //  .focus() → ブラウザの機能で「その入力欄にカーソルを置く」 
+    //  ?. → taskInputRef.currentがnullでない場合にのみメソッドを呼び出す(nullの場合?がないとエラーになりアプリが止まる)
+    const handleKeyDownDue = (e) => {
+        if (e.ctrlKey && e.key === 'Enter'){
+            setDueDate("");
+        }
+
+        if (e.key === 'Enter') {
+            e.preventDefault(); // フォームの送信などを防止
+            taskInputRef.current?.focus();
+        }
+    }
+
     //編集中のタスクを編集する(編集ボタンが押されたら編集モードに入る)
     const handleEditTask = (index) => {
         setEditingIndex(index);
@@ -109,9 +129,12 @@ function Home() {
                     <h1 className={styles.title}>ToDo App</h1>
                     <div className={styles.inputContainer}>
                         {/* onChange⇒入力が変更されたらhandleChangeを呼び出す */}
-                        <input className={styles.dateInput} type="date" value={dueDate} onChange={(e) => setDueDate(e.target.value)}/>
 
-                        <input className={styles.inputBox} type="text" placeholder="タスクを入力" value={newTask} onChange={handleChange} onKeyDown={handleKeyDown}/>
+                        <input className={styles.dateInput} type="date" value={dueDate} onChange={(e) => setDueDate(e.target.value)} onKeyDown={handleKeyDownDue}/>
+                        {/* ref⇒DOM要素を参照する */}
+                        {/* ref={taskInputRef}⇒このinputタグをJavaScript側から直接操作できるようにする」ための参照（Ref）を作る処理 */}
+                        {/* つまりtaskInputRef.current = 実際のinput要素（HTMLInputElement） となる*/}
+                        <input className={styles.inputBox} type="text" placeholder="タスクを入力" value={newTask} ref={taskInputRef} onChange={handleChange} onKeyDown={handleKeyDown}/>
                         <button className={styles.addButton} onClick={handleAddTask}>追加</button>
                 </div>
                 </div>

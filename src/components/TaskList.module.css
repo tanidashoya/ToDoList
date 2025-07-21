@@ -15,7 +15,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    gap: 1rem;
+    gap: .6rem;
 }
 
 .checkbox{
@@ -36,8 +36,8 @@
 
 
 .deleteButton{
-    padding: 0.5rem .8rem;
-    width: 20%;
+    padding: 0.5rem .2rem;
+    width: 13%;
     background: linear-gradient(45deg, #ff4a4a, #ff3838);
     color: #fff;
     border-radius: 0.5rem;
@@ -52,8 +52,8 @@
 }
 
 .editButton{
-    padding: 0.5rem .8rem;
-    width: 20%;
+    padding: 0.5rem .2rem;
+    width: 13%;
     background: linear-gradient(45deg, #4CAF50, #45a049);
     color: #fff;
     border-radius: 0.5rem;
@@ -77,4 +77,12 @@
     border-radius: 0.5rem;
     font-weight: bold;
     border: none;
+}
+
+.dueText{
+    margin-left: .4rem;
+    font-size: .8rem;
+    color: #1f1f1f;
+    width: 24%;
+    text-align: left;
 }
