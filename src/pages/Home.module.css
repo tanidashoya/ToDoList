@@ -7,7 +7,7 @@
     /* 背景色がつくようにするために100vhにする */
     min-height: 100vh;
     text-align: center;
-    background:linear-gradient(45deg, #3f3f5f, #414166);
+    background:linear-gradient(45deg, rgb(239, 176, 255), #ff8936);
 }
 
 .titleContainer{
