@@ -1,0 +1,23 @@
+.header {
+    width: 100vw;
+    background-color: rgba(19, 19, 19, 0.1);
+    padding: .5rem 0;
+    /* margin-bottom: 1rem; */
+}
+
+.nav {
+    display: flex;
+    justify-content: center;
+    gap: 8rem;
+    flex-direction: row;
+}
+
+.navLink {
+    display:inline-block;
+    text-decoration: none;
+    color: #fff;
+    font-size: 1.4rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid #fff;
+}

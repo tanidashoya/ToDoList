@@ -5,6 +5,7 @@
 //useRef は「DOM参照もできる」フック（Hook）であり、かつ「再レンダリングを伴わずに値を保持できる」フック
 import {useState,useEffect,useRef} from 'react';
 import TaskList from '../components/TaskList.jsx';
+import Header from '../components/Header.jsx';
 import styles from './Home.module.css';
 
 
@@ -121,9 +122,15 @@ function Home() {
         setEditingIndex(null);
         setEditText("");
     }
+
+    const handleEditCancel = () => {
+        setEditingIndex(null);
+        setEditText("");
+    }
     
     return(
         <div className={styles.home}>
+
             <div className={styles.homeContainer}>
                 <div className={styles.titleContainer}>
                     <h1 className={styles.title}>ToDo App</h1>
@@ -150,6 +157,7 @@ function Home() {
                         editingIndex={editingIndex}
                         setEditText={setEditText}
                         handleSaveTask={handleSaveTask}
+                        handleEditCancel={handleEditCancel}
                         />
                     </div>
                 )}

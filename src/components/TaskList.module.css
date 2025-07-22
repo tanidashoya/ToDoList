@@ -33,8 +33,6 @@
 
 }
 
-
-
 .deleteButton{
     padding: 0.5rem .2rem;
     width: 13%;
@@ -63,16 +61,27 @@
 
 .editInput{
     padding: 0.5rem .8rem;
+    color: rgba(102, 102, 102, 0.7);
     width: 100%;
     border: 1px solid #ccc;
     border-radius: 0.5rem;
-    font-size: 1.1rem;
+    font-size: 1.3rem;
 }
 
 .saveButton{
     padding: 0.5rem .8rem;
     width: 20%;
     background: linear-gradient(45deg, #2196F3, #1976D2);
+    color: #fff;
+    border-radius: 0.5rem;
+    font-weight: bold;
+    border: none;
+}
+
+.cancelButton{
+    padding: 0.5rem .8rem;
+    width: 20%;
+    background: linear-gradient(45deg, #ff4a4a, #ff3838);
     color: #fff;
     border-radius: 0.5rem;
     font-weight: bold;

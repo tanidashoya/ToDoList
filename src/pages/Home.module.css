@@ -1,3 +1,8 @@
+.home {
+    padding-top: 1rem;
+    background:linear-gradient(45deg, rgb(239, 176, 255), #ff8936);
+}
+
 .homeContainer{
     display: flex;
     flex-direction: column;
@@ -57,7 +62,7 @@
 .addButton{
     padding: 0.8rem 1.2rem;
     width: 20%;
-    background: linear-gradient(45deg, #616197, #6b6bb3);
+    background: linear-gradient(45deg, #00bcd4, #0097a7);
     color: #fff;
     border:none;
     font-size: 1rem;

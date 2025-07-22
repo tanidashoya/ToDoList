@@ -9,7 +9,8 @@ function TaskList(props) {
         editText,
         editingIndex,
         setEditText,
-        handleSaveTask
+        handleSaveTask,
+        handleEditCancel
     } = props;
     
 
@@ -37,6 +38,7 @@ function TaskList(props) {
                                     {/* 編集中のタスクの場合はinput要素を表示する(表示される値はeditTextの値) */}
                                     <input className={styles.editInput} type="text" value={editText} onChange={(e) => setEditText(e.target.value)}/>
                                     <button className={styles.saveButton} onClick={() => handleSaveTask(index)}>保存</button>
+                                    <button className={styles.cancelButton} onClick={handleEditCancel}>キャンセル</button>
                                 </>
                             ) : (
                                 // {/* task.completedがtrueの場合はstyles.doneを追加する */}
