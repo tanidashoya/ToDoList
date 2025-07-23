@@ -5,8 +5,8 @@
 //useRef は「DOM参照もできる」フック（Hook）であり、かつ「再レンダリングを伴わずに値を保持できる」フック
 import {useState,useEffect,useRef} from 'react';
 import TaskList from '../components/TaskList.jsx';
-import Header from '../components/Header.jsx';
 import styles from './Home.module.css';
+
 
 
 function Home() {
@@ -78,7 +78,14 @@ function Home() {
         const updatedTasks = [...tasks];
         //チェックボックスのon/offを切り替えて再代入する
         updatedTasks[index].completed = !updatedTasks[index].completed;
-        setTasks(updatedTasks);
+        if (updatedTasks[index].completed) {
+            const checkDataDown = [...updatedTasks];
+            const filData = checkDataDown.filter((_,i) => i !== index);
+            const rebornData = updatedTasks[index];
+            setTasks([...filData,rebornData]);
+        } else {
+            setTasks(updatedTasks);
+        }
     }
     
     //Enterキーが押されたらタスクを追加,Ctrl+Enterキーが押されたらタスクを削除
@@ -133,7 +140,7 @@ function Home() {
 
             <div className={styles.homeContainer}>
                 <div className={styles.titleContainer}>
-                    <h1 className={styles.title}>ToDo App</h1>
+                    <h1 className={styles.title}>ToDo</h1>
                     <div className={styles.inputContainer}>
                         {/* onChange⇒入力が変更されたらhandleChangeを呼び出す */}
 

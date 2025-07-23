@@ -1,5 +1,7 @@
 import styles from './Header.module.css';
-import {Link} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
+
+
 
 
 function Header() {
@@ -7,8 +9,12 @@ function Header() {
     return(
         <header className={styles.header}>
             <nav className={styles.nav}>
-                <Link to="/" className={styles.navLink}>ToDo</Link>
-                <Link to="/memo" className={styles.navLink}>Memo</Link>
+                {/* navLinkクラスはどちらにしても渡される */}
+                {/* アクティブなページに対してはactiveクラスを追加する */}
+                {/* isActiveはNavLinkのpropsで、現在のページがアクティブかどうか(true/false)を示す */}
+                {/* NavLink が自動で渡してくれる「表示中かどうか」の真偽値 */}
+                <NavLink to="/" className={({isActive}) => `${styles.navLink} ${(isActive) ? styles.active : ""}`}>ToDo</NavLink>
+                <NavLink to="/memo" className={({isActive}) => `${styles.navLink} ${(isActive) ? styles.active : ""}`}>Memo</NavLink>
             </nav>
         </header>
     )

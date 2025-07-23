@@ -26,8 +26,10 @@
 }
 
 .title{
-    font-size: 3rem;
+    font-size: 3.4rem;
     color: #fff;
+    font-weight: bold;
+    letter-spacing: 0.1rem;
 }
 
 
@@ -62,10 +64,10 @@
 .addButton{
     padding: 0.8rem 1.2rem;
     width: 20%;
-    background: linear-gradient(45deg, #00bcd4, #0097a7);
+    background: linear-gradient(45deg, #828282, #838383);
     color: #fff;
     border:none;
-    font-size: 1rem;
+    font-size: 1.2rem;
     font-weight: bold;
 }
 

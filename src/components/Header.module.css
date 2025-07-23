@@ -20,4 +20,15 @@
     padding: 0.5rem 1rem;
     border-radius: 0.5rem;
     border: 1px solid #fff;
+    transition: all 0.3s ease;
+}
+
+.navLink:hover {
+
+    color: #000;
+}
+
+.active {
+    background-color: #fff;
+    color: #000;
 }
