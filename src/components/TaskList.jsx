@@ -2,15 +2,16 @@ import styles from './TaskList.module.css';
 
 function TaskList(props) {
 
-    const {tasks,
+    const {
         handleDeleteTask,
         handleToggleTask,
         handleEditTask,
         editText,
-        editingIndex,
+        editingTask,
         setEditText,
         handleSaveTask,
-        handleEditCancel
+        handleEditCancel,
+        sorterdTasks
     } = props;
     
 
@@ -26,18 +27,18 @@ function TaskList(props) {
     return(
         <div className={styles.taskListContainer}>
             <ul className={styles.taskList}>
-                {tasks.map((task,index) => (
+                {sorterdTasks.map((task,index) => (
                     // map() メソッドの中で、各タスクごとの <li> 要素を生成するための return
                     //アロー関数の{}を()にすることでreturnを省略できる 
                     //map関数で渡されるtaskは{task:"タスク名", completed:false}というオブジェクトとして渡される
                         <li key={index} className={styles.taskItem}>
-                            <input className={styles.checkbox} type="checkbox" onChange={() => handleToggleTask(index)} checked={task.completed}/>
+                            <input className={styles.checkbox} type="checkbox" onChange={() => handleToggleTask(task)} checked={task.completed}/>
                             {/* 編集中のタスクの場合はinput要素を表示する */}
-                            {editingIndex === index ? (
+                            {editingTask === task ? (
                                 <>
                                     {/* 編集中のタスクの場合はinput要素を表示する(表示される値はeditTextの値) */}
                                     <input className={styles.editInput} type="text" value={editText} onChange={(e) => setEditText(e.target.value)}/>
-                                    <button className={styles.saveButton} onClick={() => handleSaveTask(index)}>保存</button>
+                                    <button className={styles.saveButton} onClick={() => handleSaveTask(task)}>保存</button>
                                     <button className={styles.cancelButton} onClick={handleEditCancel}>キャンセル</button>
                                 </>
                             ) : (
@@ -45,8 +46,8 @@ function TaskList(props) {
                                 <>
 
                                     <span className={`${styles.taskText} ${task.completed ? styles.done:""}`}>{task.task}</span>
-                                    <button className={styles.editButton} onClick={() => handleEditTask(index)}>編集</button>
-                                    <button className={styles.deleteButton} onClick={() =>{handleDeleteTask(index)}}>削除</button>
+                                    <button className={styles.editButton} onClick={() => handleEditTask(task)}>編集</button>
+                                    <button className={styles.deleteButton} onClick={() =>{handleDeleteTask(task)}}>削除</button>
                                     
                                     {/* {task.due && ( */}
                                         <span className={styles.dueText}>

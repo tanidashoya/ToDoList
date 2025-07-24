@@ -34,8 +34,12 @@ function Home() {
     //編集中のタスクを管理するuseState
     const [editText,setEditText] = useState("");
 
-    //編集中のタスクのインデックスを管理するuseState
-    const [editingIndex,setEditingIndex] = useState(null);
+    //編集中のタスクを管理するuseState
+    const [editingTask,setEditingTask] = useState(null);
+
+    //並び替え順を管理するuseState
+    const [sortOrder,setSortOrder] = useState("asc");
+
 
     //e.target⇒イベントが発生した要素
     //e.target.value⇒イベントが発生した要素のvalue
@@ -65,27 +69,26 @@ function Home() {
 
 
 
-    const handleDeleteTask = (index) => {
-        //filterメソッドは条件に合致しない要素を削除する
-        //iは現在処理中の要素のインデックス
-        //_は現在処理中の要素の値（今回は使わないので_）
-        //この場合は現在処理中の要素のインデックスがindexと一致しない要素を残す
-        setTasks(tasks.filter((_,i) => i !== index))
+    //インデックスではなく削除したいタスクを指定して削除する
+    const handleDeleteTask = (taskToDelete) => {
+        //タスクの内容で検索して削除する
+        //ここでのtaskはtasks配列の一つ一つの要素{task:"タスク名", completed:false, due:dueDate}というオブジェクトとして渡される
+        setTasks(tasks.filter(task => task !== taskToDelete))
     }
 
     //タスクの完了状態をチェックボックスで切り替える
-    const handleToggleTask = (index) => {
-        const updatedTasks = [...tasks];
-        //チェックボックスのon/offを切り替えて再代入する
-        updatedTasks[index].completed = !updatedTasks[index].completed;
-        if (updatedTasks[index].completed) {
-            const checkDataDown = [...updatedTasks];
-            const filData = checkDataDown.filter((_,i) => i !== index);
-            const rebornData = updatedTasks[index];
-            setTasks([...filData,rebornData]);
-        } else {
-            setTasks(updatedTasks);
-        }
+    //インデックスではなくタスクオブジェクトを受け取るように変更
+    //ここでのreturnはhandleToggleTaskのreturnではなく、map関数のreturnである
+    //map関数は配列の各要素に対して処理を行う関数であり、新しい配列に入っていく
+    const handleToggleTask = (taskToToggle) => {
+        const updatedTasks = tasks.map(task => {
+            if (task === taskToToggle) {
+                return { ...task, completed: !task.completed };
+            }
+            return task;
+        });
+        
+        setTasks(updatedTasks);
     }
     
     //Enterキーが押されたらタスクを追加,Ctrl+Enterキーが押されたらタスクを削除
@@ -115,25 +118,60 @@ function Home() {
     }
 
     //編集中のタスクを編集する(編集ボタンが押されたら編集モードに入る)
-    const handleEditTask = (index) => {
-        setEditingIndex(index);
-        setEditText(tasks[index].task);
+    //タスクオブジェクトを受け取るように変更
+    const handleEditTask = (taskToEdit) => {
+        setEditingTask(taskToEdit);
+        setEditText(taskToEdit.task);
     }
 
     //編集中のタスクを保存する
-    const handleSaveTask = (index) => {
-        const updatedTasks = [...tasks];
-        updatedTasks[index].task = editText;
+    const handleSaveTask = (taskToSave) => {
+        const updatedTasks = tasks.map(task => {
+            if (task === taskToSave) {
+                return { ...task, task: editText };
+            }
+            return task;
+        });
         setTasks(updatedTasks);
-        //編集中のタスクを保存したら編集モードを終了するためにsetEditingIndexをnullにする
-        setEditingIndex(null);
+        //編集中のタスクを保存したら編集モードを終了するためにsetEditingTaskをnullにする
+        setEditingTask(null);
         setEditText("");
     }
 
     const handleEditCancel = () => {
-        setEditingIndex(null);
+        setEditingTask(null);
         setEditText("");
     }
+
+    //並び替え順を変更する
+    //比較用関数を作成
+    //a,bは現在処理中の要素（a:一つ目の要素,b:二つ目の要素）
+    //sortOrderが"asc"の場合はa.dueとb.dueを比較してa.dueがb.dueより小さい場合は-1,大きい場合は1,等しい場合は0を返す
+    //sortOrderが"desc"の場合はa.dueとb.dueを比較してa.dueがb.dueより大きい場合は-1,小さい場合は1,等しい場合は0を返す
+    //sortの引数が負の数であれば昇順、正の数であれば降順
+    //全体として隣り合った数字同氏を比べて昇順・降順を繰り返して全体として昇順・降順としている
+    const sorterdTasks = [...tasks].sort((a,b) => {
+        // まず完了状態でソート（未完了を先に、完了を後に）
+        if (a.completed !== b.completed) {
+            return a.completed ? 1 : -1;
+        }
+        
+        // 完了状態が同じ場合は日付でソート
+        if (!a.due && !b.due) return 0;
+        if (!a.due) return 1;
+        if (!b.due) return -1;
+
+        const dataA = new Date(a.due)
+        const dataB = new Date(b.due)
+
+        if(sortOrder === "asc"){
+            return dataA - dataB;
+        } else {
+            return dataB - dataA;
+        }
+    })
+
+
     
     return(
         <div className={styles.home}>
@@ -151,6 +189,13 @@ function Home() {
                         <input className={styles.inputBox} type="text" placeholder="タスクを入力" value={newTask} ref={taskInputRef} onChange={handleChange} onKeyDown={handleKeyDown}/>
                         <button className={styles.addButton} onClick={handleAddTask}>追加</button>
                 </div>
+                {/* 並び替えボタン */}
+                {/* 並び替えボタンを押したらsortOrderを昇順か降順に切り替える */}
+                <div className={styles.sortContainer}>
+                    <button className={styles.sortButton} onClick={()=>setSortOrder(sortOrder === "asc" ? "desc" : "asc")}>
+                        {sortOrder === "asc" ? "🔼昇順" : "🔽降順"}
+                    </button>
+                </div>
                 </div>
                 {/* tasks.length > 0⇒タスクが1つ以上ある場合 */}
                 {/* 左側がtrueの場合は右側の処理が実行される */}
@@ -161,10 +206,11 @@ function Home() {
                         handleToggleTask={handleToggleTask} 
                         handleEditTask={handleEditTask}
                         editText={editText}
-                        editingIndex={editingIndex}
+                        editingTask={editingTask}
                         setEditText={setEditText}
                         handleSaveTask={handleSaveTask}
                         handleEditCancel={handleEditCancel}
+                        sorterdTasks={sorterdTasks}
                         />
                     </div>
                 )}

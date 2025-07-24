@@ -1,6 +1,6 @@
 .home {
     /* padding-top: 1rem; */
-    background:linear-gradient(45deg, rgb(239, 176, 255), #ff8936);
+    /* background:linear-gradient(45deg, rgb(239, 176, 255), #ff8936); */
 }
 
 .homeContainer{
@@ -9,8 +9,7 @@
     align-items: center;
     justify-content: flex-start;
     width: 100vw;
-    /* スクロールを無くすために正確な高さを設定 */
-    height: calc(100vh - 200px);
+    min-height: calc(100vh - 200px);
     text-align: center;
     background:linear-gradient(45deg, rgb(239, 176, 255), #ff8936);
     padding-top: 2rem;
@@ -81,6 +80,15 @@
     border:none;
     font-size: 1.2rem;
     font-weight: bold;
+}
+
+.sortContainer{
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    /* gap: 0.8rem; */
+    max-width: 650px;
+    width: 100%;
 }
 
 .taskList{
