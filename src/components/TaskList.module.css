@@ -18,6 +18,12 @@
     gap: .6rem;
 }
 
+.noTasks{
+    text-align: center;
+    font-size: 1.2rem;
+    color: #666;
+}
+
 .checkbox{
     width: 1.5rem;
     height: 1.5rem;

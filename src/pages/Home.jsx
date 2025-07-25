@@ -40,6 +40,8 @@ function Home() {
     //並び替え順を管理するuseState
     const [sortOrder,setSortOrder] = useState("asc");
 
+    const [searchText,setSearchText] = useState("");
+
 
     //e.target⇒イベントが発生した要素
     //e.target.value⇒イベントが発生した要素のvalue
@@ -171,6 +173,13 @@ function Home() {
         }
     })
 
+    //検索欄に文字を入力したら入力した文字でフィルターされる
+    //検索窓が空の場合はsorterdTasksをそのまま表示する（includes("")は全ての文字列にマッチする）
+    //検索結果は新たな状態として保持していないので入力を消すと元に戻る
+    const filteredTasks = sorterdTasks.filter(task => 
+        task.task.toLowerCase().includes(searchText.toLowerCase())
+    )
+
 
     
     return(
@@ -191,7 +200,8 @@ function Home() {
                 </div>
                 {/* 並び替えボタン */}
                 {/* 並び替えボタンを押したらsortOrderを昇順か降順に切り替える */}
-                <div className={styles.sortContainer}>
+                <div className={styles.dataContainer}>
+                    <input className={styles.searchInput} type="text" placeholder="タスクを検索" value={searchText} onChange={(e) => setSearchText(e.target.value)}/>
                     <button className={styles.sortButton} onClick={()=>setSortOrder(sortOrder === "asc" ? "desc" : "asc")}>
                         {sortOrder === "asc" ? "🔼昇順" : "🔽降順"}
                     </button>
@@ -201,7 +211,7 @@ function Home() {
                 {/* 左側がtrueの場合は右側の処理が実行される */}
                 {tasks.length > 0 && (
                     <div className={styles.taskList}>
-                        <TaskList tasks={tasks} 
+                        <TaskList filteredTasks={filteredTasks} 
                         handleDeleteTask={handleDeleteTask} 
                         handleToggleTask={handleToggleTask} 
                         handleEditTask={handleEditTask}
@@ -210,7 +220,7 @@ function Home() {
                         setEditText={setEditText}
                         handleSaveTask={handleSaveTask}
                         handleEditCancel={handleEditCancel}
-                        sorterdTasks={sorterdTasks}
+                        // sorterdTasks={sorterdTasks}
                         />
                     </div>
                 )}

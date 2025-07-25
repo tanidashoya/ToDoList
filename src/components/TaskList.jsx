@@ -3,6 +3,7 @@ import styles from './TaskList.module.css';
 function TaskList(props) {
 
     const {
+        filteredTasks,
         handleDeleteTask,
         handleToggleTask,
         handleEditTask,
@@ -11,7 +12,7 @@ function TaskList(props) {
         setEditText,
         handleSaveTask,
         handleEditCancel,
-        sorterdTasks
+        // sorterdTasks
     } = props;
     
 
@@ -27,7 +28,12 @@ function TaskList(props) {
     return(
         <div className={styles.taskListContainer}>
             <ul className={styles.taskList}>
-                {sorterdTasks.map((task,index) => (
+                {/* 条件 && JSX：条件がTrueのときだけJSXが実行される */}
+                {/* JSXの記法（要素を（）で囲むのは）、複数行の要素や改行を含む場合は () を使うのが安全かつ可読性も高いため*/}
+                {filteredTasks.length === 0 && (
+                    <li className={styles.noTasks}>タスクがありません</li>
+                )}
+                {filteredTasks.map((task,index) => (
                     // map() メソッドの中で、各タスクごとの <li> 要素を生成するための return
                     //アロー関数の{}を()にすることでreturnを省略できる 
                     //map関数で渡されるtaskは{task:"タスク名", completed:false}というオブジェクトとして渡される
