@@ -1,5 +1,6 @@
 import styles from './Memo.module.css';
 import { useState } from 'react';
+import MemoList from '../components/MemoList.jsx';
 
 
 
@@ -32,7 +33,18 @@ function Memo() {
         setMemoContent("");
         setIsCreateing(false);
     }
-     
+    
+    //メモを削除するボタン
+    const handleDelete = (memo) => {
+        setMemoList(memoList.filter((m)=>m !== memo));
+    }
+
+    //メモの作成をキャンセルする
+    const handleCancel = () => {
+        setIsCreateing(false);
+        setMemoTitle("");
+        setMemoContent("");
+    }
 
     return(
         <div className={styles.memo}>
@@ -51,8 +63,13 @@ function Memo() {
                     <input className={styles.titleInput} type="text" placeholder="タイトルを入力" value={memoTitle} onChange={(e)=>setMemoTitle(e.target.value)}/>
                     <textarea className={styles.contentInput} rows="10" cols="50" placeholder="内容を入力" value={memoContent} onChange={(e)=>setMemoContent(e.target.value)}/>
                     <button className={styles.saveButton} onClick={handleSave}>保存</button>
+                    <button className={styles.cancelButton} onClick={handleCancel}>キャンセル</button>
                 </div>
             )}
+
+            <div className={styles.memoListContainer}>
+                <MemoList memoList={memoList} handleDelete={handleDelete} />
+            </div>
         </div>
     )
 }
