@@ -1,21 +1,16 @@
-.memo {
-    /* background:linear-gradient(45deg, rgb(239, 176, 255), #ff8936); */
-    /* min-height: 100vh; */
-}
-
-
 
 .memoContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    width: 100vw;
-    min-height: calc(100vh - 200px);
-    text-align: center;
-    /* background:linear-gradient(45deg, rgb(239, 176, 255), #ff8936); */
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+    width: 100%;
+    min-height: 55vh;
+    /* text-align: center; */
+    /* padding-top: 2rem; */
+    /* padding-bottom: 2rem; */
+    /* box-sizing: border-box;　⇒　width や height に padding・borderも含めて計算される */
+    box-sizing: border-box;
 }
 
 .titleContainer{
@@ -25,17 +20,16 @@
     transform: translate(-50%, -50%);
     display: flex;
     flex-direction: column;
+    /* 交差軸（ここでは横軸）において位置を揃える */
     align-items: center;
+    /* 主軸（ここでは縦軸）において位置を揃える */
     justify-content: center;
-    gap: 1rem;
+    gap: 0.4rem;
     max-width: 550px;
-    width: 100%;
-    /* z-index: 1000; */
-    /* background: rgba(255, 255, 255, 0.1); */
-    padding: 1.2rem;
+    width: 90%;
+    /* padding: 1.2rem; */
     border-radius: 1rem;
-    /* backdrop-filter: blur(10px); */
-    /* box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); */
+    /* box-sizing: border-box; */
 }
 
 .title{
@@ -49,34 +43,181 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: 1rem;
+    /* gap: 1rem; */
     max-width: 550px;
     width: 100%;
+    box-sizing: border-box;
+}
+
+.createButton {
+    background: #6c757d;
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(108, 117, 125, 0.3);
+}
+
+.createButton:hover {
+    background: #5a6268;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(108, 117, 125, 0.4);
+}
+
+/* 作成ウィンドウ用のスタイル */
+.createContainer{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+}
+
+.createWindow {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 1rem;
+    padding: 1rem;
+    max-width: 600px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    animation: slideIn 0.3s ease;
+    box-sizing: border-box;
+}
+
+
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.createWindow h2 {
+    color: #1f1f1f;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
 }
 
 .titleInput{
-    width: 50%;
+    width: 100%;
     color: #1f1f1f;
     font-size: 1rem;
     padding: 0.72rem;
     border: 1px solid #ccc;
     border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    box-sizing: border-box;
 }
 
-.createContainer{
-    position: absolute;
-    top: 20%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    /* max-width: 700px; */
-    /* width: 100%; */
-    z-index: 1000;
-    background: rgba(0, 0, 0, 0.8);
-    height:100%;
-    width:100%;
+.contentInput{
+    width: 100%;
+    color: #1f1f1f;
+    font-size: 1rem;
+    padding: 0.72rem;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    resize: vertical;
+    min-height: 200px;
+    box-sizing: border-box;
+    font-family: inherit;
 }
+
+.titleInput:focus,
+.contentInput:focus {
+    outline: none;
+    border-color: #ff8936;
+    box-shadow: 0 0 0 2px rgba(255, 137, 54, 0.2);
+}
+
+.buttonContainer {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.saveButton {
+    background: #2ed573;
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.saveButton:hover {
+    background: #26d0ce;
+    transform: translateY(-2px);
+}
+
+.cancelButton {
+    background: #747d8c;
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.cancelButton:hover {
+    background: #57606f;
+    transform: translateY(-2px);
+}
+
+.noMemoContainer{  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* margin-top: 2rem; */
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #ffffff; 
+    padding: 0.5rem;
+    /* background: #fff; */
+    border-radius: 0.5rem; 
+    /* background: #fff; */
+    width: 40%;
+    text-align: center;
+}
+
+
+.memoListContainer {
+    background: #fff;
+    /* margin-top: 2rem; */
+    max-width: 750px;
+    width: 60%;
+    border-radius: 0.5rem;
+    margin-bottom: 2.5rem;
+    box-sizing: border-box;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+
