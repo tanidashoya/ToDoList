@@ -167,6 +167,7 @@ function Home() {
         const dataA = new Date(a.due)
         const dataB = new Date(b.due)
 
+        //戻り値が負の数であれば昇順、正の数であれば降順
         if(sortOrder === "asc"){
             return dataA - dataB;
         } else {
@@ -177,6 +178,7 @@ function Home() {
     //検索欄に文字を入力したら入力した文字でフィルターされる
     //検索窓が空の場合はsorterdTasksをそのまま表示する（includes("")は全ての文字列にマッチする）
     //検索結果は新たな状態として保持していないので入力を消すと元に戻る
+    //filter()は配列の要素を一つずつ取り出して、条件に合うかどうかを判断する。処理部分がTrueの場合は新しい配列に追加
     const filteredTasks = sorterdTasks.filter(task => 
         task.task.toLowerCase().includes(searchText.toLowerCase())
     )

@@ -42,12 +42,14 @@ function Memo() {
             id:Date.now(),
             title:memoTitle,
             content:memoContent,
+            // 作成した日付を日付型で格納
             createdAt:new Date().toLocaleDateString()
         }
         //memoListに新しいメモを追加する(配列に追加)
         setMemoList([...memoList,newMemo]);
         setMemoTitle("");
         setMemoContent("");
+        //作成画面を閉じる
         setIsCreateing(false);
     }
 
@@ -97,11 +99,17 @@ function Memo() {
         };
     }, []);
     
+
+    //並び替え順を管理するuseState
     const sorterdMemoList = [...memoList].sort((a,b) => {
 
+        //日付型で比較する
         const dataA = new Date(a.createdAt)
         const dataB = new Date(b.createdAt)
 
+        //ascの場合は正の数だと入れ替える。負の数だと入れ替えない。
+        // sort(正の値)は入れ替える、sort（負の値）は入れ替えない
+        //戻り値が負の数だと入れ替えない。
         if(sortOrder === "asc"){
             return dataA - dataB;
         } else {
@@ -112,6 +120,10 @@ function Memo() {
     //検索欄に文字を入力したら入力した文字でフィルターされる
     //検索窓が空の場合はsorterdTasksをそのまま表示する（includes("")は全ての文字列にマッチする）
     //検索結果は新たな状態として保持していないので入力を消すと元に戻る
+    //filter()は配列の要素を一つずつ取り出して、条件に合うかどうかを判断する。処理部分がTrueの場合は新しい配列に追加
+    //toLowerCase()は文字列を小文字に変換するメソッド
+    //includes()は文字列に指定した文字列が含まれているかどうかを判断するメソッド
+    //検索対象の文字列.includes(検索したい文字列)
     const filteredMemoList = sorterdMemoList.filter(memo => 
         memo.title.toLowerCase().includes(searchText.toLowerCase()) || 
         memo.content.toLowerCase().includes(searchText.toLowerCase())
@@ -119,6 +131,7 @@ function Memo() {
     
 
     //メモの内容をlocalstorageに保存する
+    //JSON.stringify(オブジェクト) → オブジェクトをJSON形式の文字列に変換するメソッド
     useEffect(()=>{
         localStorage.setItem("memoList",JSON.stringify(memoList));
     },[memoList])

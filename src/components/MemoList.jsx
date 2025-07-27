@@ -44,7 +44,7 @@ function MemoList(props) {
     //特定箇所のtitleをeditTitleに、contentをeditContentに変更している
     const handleSaveEdit = () => {
         if (isEditing) {
-            const updatedList = memoList.map((memo)=>
+            const updatedList = filteredMemoList.map((memo)=>
                 memo === editingMemo ? {...memo,title: editTitle,content: editContent,createdAt:editDate} : memo
             )
             setMemoList(updatedList);
@@ -85,7 +85,7 @@ function MemoList(props) {
                         />
                         <textarea 
                             className={styles.contentInput} 
-                            rows="20" 
+                            rows="15" 
                             cols="50" 
                             placeholder="内容を入力" 
                             value={editContent} 
