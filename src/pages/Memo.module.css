@@ -5,7 +5,7 @@
     align-items: center;
     justify-content: flex-start;
     width: 100%;
-    min-height: 55vh;
+    min-height: 50vh;
     /* text-align: center; */
     /* padding-top: 2rem; */
     /* padding-bottom: 2rem; */
@@ -24,7 +24,7 @@
     align-items: center;
     /* 主軸（ここでは縦軸）において位置を揃える */
     justify-content: center;
-    gap: 0.4rem;
+    gap: 0.2rem;
     max-width: 550px;
     width: 90%;
     /* padding: 1.2rem; */
@@ -101,7 +101,7 @@
 @keyframes slideIn {
     from {
         opacity: 0;
-        transform: translateY(-20px) scale(0.95);
+        transform: translateY(-20px) scale(0.1);
     }
     to {
         opacity: 1;
@@ -206,12 +206,28 @@
     text-align: center;
 }
 
+.memoListTitle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.memoListTitleText {
+    /* font-family: 'Noto Sans JP', sans-serif; */
+    color: #686868;
+    border-bottom: 1px solid #686868;
+    font-weight: bold;
+    font-size: 1.8rem;
+    font-weight: 500;
+    margin-top: 1.8rem;
+    margin-bottom: 1.8rem;
+}
 
 .memoListContainer {
     background: #fff;
     /* margin-top: 2rem; */
-    max-width: 750px;
-    width: 60%;
+    max-width: 700px;
+    width: 100%;
     border-radius: 0.5rem;
     margin-bottom: 2.5rem;
     box-sizing: border-box;

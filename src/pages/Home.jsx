@@ -211,6 +211,9 @@ function Home() {
                 {/* 左側がtrueの場合は右側の処理が実行される */}
                 {tasks.length > 0 && (
                     <div className={styles.taskList}>
+                        <div className={styles.taskListTitle}>
+                            <span className={styles.taskListTitleText}>TaskList</span>
+                        </div>
                         <TaskList filteredTasks={filteredTasks} 
                         handleDeleteTask={handleDeleteTask} 
                         handleToggleTask={handleToggleTask} 

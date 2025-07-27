@@ -99,6 +99,22 @@
     border-radius: 0.5rem;
 }
 
+.taskListTitle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.taskListTitleText {
+    color: #686868;
+    border-bottom: 1px solid #686868;
+    font-weight: bold;
+    font-size: 1.8rem;
+    font-weight: 500;
+    margin-top: 1.8rem;
+    margin-bottom: 1.8rem;
+}
+
 .taskList{
     background: #fff;
     margin-top: calc(50vh - 20px);

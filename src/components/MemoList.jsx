@@ -57,12 +57,11 @@ function MemoList(props) {
     return(
         <div className={styles.memoListContainer}>
             {memoList.map((memo,index)=>(
-                <div key={index} className={styles.memoItem}>
-                    <div className={styles.memoTitle}>
-                        {memo.title}
-                    </div>
-                    <div className={styles.buttonContainer}>
-                        <button className={styles.editButton} onClick={()=>handleEdit(memo)}>編集</button>
+                <div key={index} className={styles.memoAllItem}>
+                    <span className={styles.memoDate}>{memo.createdAt}</span>
+                    <div className={styles.memoItem}>
+                        <span className={styles.memoTitle}>{memo.title}</span>
+                        <button className={styles.editButton} onClick={()=>handleEdit(memo)}>閲覧・編集</button>
                         <button className={styles.deleteButton} onClick={()=>handleDelete(memo)}>削除</button>
                     </div>
                 </div>

@@ -42,7 +42,8 @@ function Memo() {
         const newMemo = {
             id:Date.now(),
             title:memoTitle,
-            content:memoContent
+            content:memoContent,
+            createdAt:new Date().toLocaleDateString()
         }
         //memoListに新しいメモを追加する(配列に追加)
         setMemoList([...memoList,newMemo]);
@@ -111,7 +112,11 @@ function Memo() {
                     <span className={styles.noMemoText}>メモがありません</span>
                 </div>
                 ) : (
+                
                 <div className={styles.memoListContainer}>
+                    <div className={styles.memoListTitle}>
+                        <span className={styles.memoListTitleText}>MemoList</span>
+                    </div>
                     <MemoList 
                         memoList={memoList} 
                         handleDelete={handleDelete} 

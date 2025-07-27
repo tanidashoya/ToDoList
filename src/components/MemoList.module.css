@@ -1,16 +1,34 @@
 .memoListContainer {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    padding: 1rem;
-    max-width: 600px;
+    gap: 0.7rem;
+    padding: 0.4rem;
+    width: 100%;
+    max-width: 700px;
     margin: 0 auto;
+}
+
+.memoAllItem {
+    padding: 0.4rem;
+}
+
+.memoDate {
+    display: inline-block;
+    color: #686868;
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    margin-left: 0.5rem;
+    text-decoration: underline;
+    text-underline-offset: 0.2rem;
 }
 
 .memoItem {
     display: flex;
-    flex-direction: column;
-    padding: 1rem;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.2rem;
     background: rgba(255, 255, 255, 0.1);
     border-radius: 0.5rem;
     backdrop-filter: blur(10px);
@@ -19,25 +37,25 @@
 }
 
 .memoItem:hover {
-    background: rgba(255, 255, 255, 0.15);
     transform: translateY(-2px);
 }
 
 .memoTitle {
-    color: #fff;
-    font-size: 1.1rem;
+    color: #686868;
+    font-size: 1.0rem;
+    width: 70%;
     font-weight: 500;
     cursor: pointer;
     transition: color 0.3s ease;
     padding: 0.5rem;
+    border: 1px solid #ccc;
     border-radius: 0.3rem;
-    margin-bottom: 0.5rem;
 }
 
-.memoTitle:hover {
+/* .memoTitle:hover {
     color: #ff8936;
     background: rgba(255, 137, 54, 0.1);
-}
+} */
 
 .memoContentContainer {
     background: rgba(255, 255, 255, 0.05);
@@ -52,13 +70,14 @@
     white-space: pre-wrap;
 }
 
-.buttonContainer {
+/* .buttonContainer {
     display: flex;
     gap: 0.5rem;
     justify-content: flex-end;
-}
+} */
 
 .editButton {
+    width: 18%;
     background: #ff8936;
     color: white;
     border: none;
@@ -193,4 +212,10 @@
     outline: none;
     border-color: #ff8936;
     box-shadow: 0 0 0 2px rgba(255, 137, 54, 0.2);
+}
+
+.buttonContainer {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: right;
 }
