@@ -21,12 +21,11 @@ function Memo() {
     //メモ作成中かどうかを管理する
     const [isCreateing,setIsCreateing] = useState(false);
 
-    //メモがクリックされたら、そのメモの内容を表示する
-    // const handleMemoClick = (memo) => {
-    //     setMemoTitle(memo.title);
-    //     setMemoContent(memo.content);
-    //     setIsEditing(true);
-    // }
+    //並び替え順を管理するuseState
+    const [sortOrder,setSortOrder] = useState("asc");
+
+    //検索欄の文字を管理するuseState
+    const [searchText,setSearchText] = useState("");
 
     //メモ作成画面でメモを保存する
     const handleSave = () => {
@@ -98,6 +97,26 @@ function Memo() {
         };
     }, []);
     
+    const sorterdMemoList = [...memoList].sort((a,b) => {
+
+        const dataA = new Date(a.createdAt)
+        const dataB = new Date(b.createdAt)
+
+        if(sortOrder === "asc"){
+            return dataA - dataB;
+        } else {
+            return dataB - dataA;
+        }
+    })
+
+    //検索欄に文字を入力したら入力した文字でフィルターされる
+    //検索窓が空の場合はsorterdTasksをそのまま表示する（includes("")は全ての文字列にマッチする）
+    //検索結果は新たな状態として保持していないので入力を消すと元に戻る
+    const filteredMemoList = sorterdMemoList.filter(memo => 
+        memo.title.toLowerCase().includes(searchText.toLowerCase()) || 
+        memo.content.toLowerCase().includes(searchText.toLowerCase())
+    )
+    
 
     //メモの内容をlocalstorageに保存する
     useEffect(()=>{
@@ -111,6 +130,22 @@ function Memo() {
                     <h1 className={styles.title}>Memo</h1>
                     <div className={styles.inputContainer}>
                         <button className={styles.createButton} onClick={()=>setIsCreateing(true)}>作成</button>
+                    </div>
+                    <div className={styles.DataContainer}>
+                        <div className={styles.searchContainer}>
+                            <input 
+                                className={styles.searchInput} 
+                                type="text" 
+                                placeholder="検索" 
+                                value={searchText} 
+                                onChange={(e)=>setSearchText(e.target.value)}
+                            />
+                        </div>
+                        <div className={styles.sortContainer}>
+                            <button className={styles.sortButton} onClick={()=>setSortOrder(sortOrder === "asc" ? "desc" : "asc")}>
+                                {sortOrder === "asc" ? "🔼昇順" : "🔽降順"}
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -153,7 +188,7 @@ function Memo() {
                         <span className={styles.memoListTitleText}>MemoList</span>
                     </div>
                     <MemoList 
-                        memoList={memoList} 
+                        filteredMemoList={filteredMemoList} 
                         handleDelete={handleDelete} 
                         handleCancel={handleCancel}
                         handleSave={handleSave}

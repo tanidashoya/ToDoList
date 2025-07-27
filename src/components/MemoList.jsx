@@ -5,7 +5,8 @@ import { useState } from 'react';
 function MemoList(props) {
 
 
-    const {memoList,
+    const {
+        filteredMemoList,
         handleDelete,
         setMemoTitle,
         setMemoContent,
@@ -27,7 +28,8 @@ function MemoList(props) {
         //editingMemoにmemoオブジェクトを代入。これは返答該当箇所の特定に使う
         setEditingMemo(memo);
         setEditTitle(memo.title);
-        setEditContent(new Date().toLocaleDateString());
+        setEditContent(memo.content);
+        setEditDate(memo.createdAt);
     }
 
     const handleCancelEdit = () => {
@@ -58,7 +60,7 @@ function MemoList(props) {
     
     return(
         <div className={styles.memoListContainer}>
-            {memoList.map((memo,index)=>(
+            {filteredMemoList.map((memo,index)=>(
                 <div key={index} className={styles.memoAllItem}>
                     <span className={styles.memoDate}>{memo.createdAt}</span>
                     <div className={styles.memoItem}>
@@ -73,7 +75,7 @@ function MemoList(props) {
             {isEditing && (
                 <div className={styles.createContainer}>
                     <div className={styles.editWindow}>
-                        <h2>メモを編集</h2>
+                        <h2>メモを編集</h2> 
                         <input 
                             className={styles.titleInput} 
                             type="text" 

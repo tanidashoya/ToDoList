@@ -40,6 +40,7 @@ function Home() {
     //並び替え順を管理するuseState
     const [sortOrder,setSortOrder] = useState("asc");
 
+    //検索欄の文字を管理するuseState
     const [searchText,setSearchText] = useState("");
 
 
@@ -107,7 +108,7 @@ function Home() {
     //期限入力欄でctrl+Enterキーが押されたら期限をクリア
     //  taskInputRef.current → 実際の <input> 要素 
     //  .focus() → ブラウザの機能で「その入力欄にカーソルを置く」 
-    //  ?. → taskInputRef.currentがnullでない場合にのみメソッドを呼び出す(nullの場合?がないとエラーになりアプリが止まる)
+    //  taskInputRef.currentがnullでない場合にのみメソッドを呼び出す(nullの場合?がないとエラーになりアプリが止まる)
     const handleKeyDownDue = (e) => {
         if (e.ctrlKey && e.key === 'Enter'){
             setDueDate("");
