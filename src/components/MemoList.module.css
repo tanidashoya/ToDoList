@@ -78,7 +78,7 @@
 
 .editButton {
     width: 18%;
-    background: #ff8936;
+    background: linear-gradient(45deg, #4CAF50, #45a049);
     color: white;
     border: none;
     padding: 0.5rem 1rem;

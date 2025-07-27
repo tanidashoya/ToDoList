@@ -64,6 +64,41 @@ function Memo() {
         setMemoContent("");
     }
 
+    //ctrl+cキーが押されたら作成画面を開く
+    //Reactの中で JavaScript の「生のAPI（DOM API）」を使うのはよくあること   
+    //useEffect() → 副作用を実行するためのフック(第二引数に[]を渡すと、初回のみ実行される)
+    //「初回」とは、そのコンポーネント（ここでは Memo）が画面上に初めて表示（＝マウント）されるタイミング
+    //再びMemoコンポーネントが表示されたときにも、useEffect が実行される
+    //「Reactの世界では、はじめから window.addEventListener を設置してはいけない」から useEffect が必要
+    //ページコンポーネントを切り替えてまたもとのページコンポーネントを表示したときに
+    //何度もwindow.addEventListener('keydown', handleKeyDownCreate)が呼ばれてしまう
+    // useEffect とクリーンアップ関数を使うことで、
+    // window.addEventListener が再レンダリングや再マウント時に
+    // 重複して登録されるのを防いでいる
+    //Reactでは DOM操作に関わるコードは useEffect(() => {...}, []) の中に書くのが原則・一般的
+    useEffect(() => {
+        const handleKeyDownCreate = (e) => {
+            if (e.ctrlKey && e.key === 'c') {
+                e.preventDefault(); // ブラウザのデフォルト動作を防ぐ（コピーとか）
+                setIsCreateing(true);
+            }
+        };
+
+        //addEventListener() → イベントリスナーを追加するメソッド
+        //第一引数：keydown → キーが押されたときに発火するイベント
+        //第二引数：handleKeyDownCreate → キーが押されたときに実行する関数
+        window.addEventListener('keydown', handleKeyDownCreate);
+        
+        //クリーンアップ関数
+        //removeEventListener() → イベントリスナーを削除するメソッド
+        //実行されるタイミング：コンポーネントがアンマウントされるタイミング
+        //コンポーネントがアンマウントされるタイミング：コンポーネントが画面から消えるタイミング
+        return () => {
+            window.removeEventListener('keydown', handleKeyDownCreate);
+        };
+    }, []);
+    
+
     //メモの内容をlocalstorageに保存する
     useEffect(()=>{
         localStorage.setItem("memoList",JSON.stringify(memoList));

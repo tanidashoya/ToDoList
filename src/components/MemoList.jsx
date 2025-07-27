@@ -17,6 +17,7 @@ function MemoList(props) {
     const [isEditing,setIsEditing] = useState(false);
     const [editTitle,setEditTitle] = useState('');
     const [editContent,setEditContent] = useState('');
+    const [editDate,setEditDate] = useState('');
     //編集中のmemoを管理する
     const [editingMemo,setEditingMemo] = useState(null);
 
@@ -26,7 +27,7 @@ function MemoList(props) {
         //editingMemoにmemoオブジェクトを代入。これは返答該当箇所の特定に使う
         setEditingMemo(memo);
         setEditTitle(memo.title);
-        setEditContent(memo.content || '');
+        setEditContent(new Date().toLocaleDateString());
     }
 
     const handleCancelEdit = () => {
@@ -42,7 +43,7 @@ function MemoList(props) {
     const handleSaveEdit = () => {
         if (isEditing) {
             const updatedList = memoList.map((memo)=>
-                memo === editingMemo ? {...memo,title: editTitle,content: editContent} : memo
+                memo === editingMemo ? {...memo,title: editTitle,content: editContent,createdAt:editDate} : memo
             )
             setMemoList(updatedList);
         }
@@ -51,6 +52,7 @@ function MemoList(props) {
         setEditingMemo(null);
         setEditTitle('');
         setEditContent('');
+        setEditDate('');
     }
     
     
